@@ -33,6 +33,28 @@
     justify-content: flex-start;
     padding: 10px;
 }
+.stopwatch_laps li span {
+    display: inline-block;
+}
+.stopwatch_laps li .stopwatch_laps_lap{
+    display: flex;
+    justify-content: space-between;
+}
+.stopwatch_laps li .stopwatch_laps_lap:hover .stopwatch_laps_lap_del {
+    opacity: 100;
+}
+.stopwatch_laps_lap_del {
+    cursor: pointer;
+    opacity: 0;
+    align-self: center;
+    color: rgb(218, 40, 40);
+    font-size: 14px;
+    padding: 2px 3px;
+    border: 1px solid rgb(145, 41, 41);
+    background-color: rgba(138, 43, 43, 0.5);
+    transition: opacity 0.3s;
+    margin-right: 5px;
+}
 button {
     width: 55px;
     background-color: rgb(165, 141, 6);
