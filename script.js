@@ -5,6 +5,7 @@ let startPoint = 0,
     lastLapS = '00';
 document.querySelector('.stopwatch_control_start').addEventListener('click', () => {
     let startTimer = setTimeout(function contTimer() {
+        document.querySelector('.stopwatch_control_start').disabled = true;
         startPoint += 0.01;
         if (startPoint.toFixed() > 59) startPoint -= 59, minutes++;
         updateTime(startPoint);
@@ -12,6 +13,7 @@ document.querySelector('.stopwatch_control_start').addEventListener('click', () 
     },10);
     document.querySelector('.stopwatch_control_stop').addEventListener('click', () => {
         clearTimeout(startTimer);
+        document.querySelector('.stopwatch_control_start').disabled = false;
     });  
 });
 document.querySelector('.stopwatch_control_reset').addEventListener('click', () => {
@@ -27,6 +29,7 @@ document.querySelector('.stopwatch_control_lap').addEventListener('click', () =>
     let lapM = minutes - lastLapM;
     let lapS = startPoint - lastLapS;
     let li = document.createElement('li');
+    if (lapM === 0 && lapS === 0) return;
     li.innerHTML = `
         <span class = 'stopwatch_laps_lap'>
             <span class = 'stopwatch_laps_time'>+ ${formatTimeM(lapM)}:${formatTimeS(lapS)}</span>
@@ -46,7 +49,7 @@ function updateTime(seconds) {
     document.querySelector('.stopwatch_screen_output').innerHTML =  `${formatTimeM(minutes)}:${formatTimeS(seconds)}`;
 };
 function formatTimeM(minutes) {
-    if (typeof minutes === 'string') return minutes ;
+    if (typeof minutes === 'string' || minutes > 9) return minutes;
     if (minutes < 10) return  minutes = `0${(minutes).toString()}`;
 }
 function formatTimeS(seconds) {
