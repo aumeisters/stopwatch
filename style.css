@@ -65,4 +65,9 @@ button {
     font-weight: bold;
     font-size: 14px;
 }
-
+.best_lap {
+    color: rgb(187, 235, 15);
+}
+.worst_lap {
+    color: rgb(218, 40, 40);
+}

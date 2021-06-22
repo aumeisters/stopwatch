@@ -37,7 +37,9 @@ document.querySelector('.stopwatch_control_lap').addEventListener('click', () =>
     document.querySelector('.stopwatch_laps').append(li);
     document.querySelectorAll('.stopwatch_laps_lap_del').forEach(elem => elem.addEventListener('click', (e) => {
         e.target.parentElement.parentElement.remove();
+        indicateResults();
     }));
+    indicateResults(); 
 });
 
 function updateTime(seconds) {
@@ -52,5 +54,23 @@ function formatTimeS(seconds) {
     if (seconds < 10) return seconds = `0${seconds}`;
     return seconds;
 }
-
+function indicateResults() {
+    let lapsArr = [];
+    document.querySelectorAll('.stopwatch_laps_time').forEach( elem => {
+       elem.classList.remove('best_lap');
+       elem.classList.remove('worst_lap');
+       let elemTime = [...elem.innerHTML];
+       elemTime = elemTime.filter( item => {
+          if (item === '0') return item;
+          if (Number(item) !== NaN) return Number(item);
+       })
+       elemTime = elemTime.reduce((prev,curr) => '' + prev + curr);
+       lapsArr.push([elem, elemTime]);
+    });
+    if (lapsArr.length === 0) return;
+    if (lapsArr.length === 1) return lapsArr[0][0].classList.add('best_lap');
+    lapsArr.sort( (a, b) => a[1] - b[1])
+    lapsArr[0][0].classList.add('worst_lap');
+    lapsArr[lapsArr.length -1][0].classList.add('best_lap');
+}
 
