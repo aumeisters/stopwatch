@@ -51,6 +51,7 @@ const stopWatch = {
     },
     reset() {
         this.startPoint = 0;
+        this.minutes = 0;
         this.updateTime(0);
         document.querySelector('.stopwatch_laps').innerHTML = '';
         this.lastLapM = 0;
