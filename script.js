@@ -1,14 +1,14 @@
 const stopWatch = {
     startPoint: 0,
     minutes: 0,
-    lastLapM : '00',
-    lastLapS : '00',
+    lastLapM : 0,
+    lastLapS : 0,
     rotationMinutes: 0,
     contTimer() {
         document.querySelector('.stopwatch_control_start').disabled = true;
         this.startPoint += 0.01;
         this.rotationMinutes += 0.01;
-        if (this.startPoint.toFixed(2) > 59.99) this.startPoint -= 59.99, this.minutes ++;
+        if (this.startPoint.toFixed(2) > 59.99) this.startPoint = 0.01, this.minutes ++;
         this.updateTime(this.startPoint);
         this.rotateArrow(this.startPoint,'.stopwatch_clock_clock_arrow');
         this.rotateArrow((this.rotationMinutes / 60 ),'.stopwatch_clock_clock_arrow_minutes');
@@ -16,6 +16,7 @@ const stopWatch = {
     addLap() {
         let lapM = this.minutes - this.lastLapM;
         let lapS = this.startPoint - this.lastLapS;
+        if (this.lastLapS > this.startPoint ) lapS = this.startPoint + (this.minutes * 60) - this.lastLapS, lapM = 0;
         let li = document.createElement('li');
         if (lapM === 0 && lapS === 0) return;
         li.innerHTML = `
