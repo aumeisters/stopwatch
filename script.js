@@ -33,19 +33,19 @@ const stopWatch = {
     indicateResults() {
         let lapsArr = [];
         document.querySelectorAll('.stopwatch_laps_time').forEach( elem => {
-        elem.classList.remove('best_lap');
-        elem.classList.remove('worst_lap');
-        let elemTime = [...elem.innerHTML];
-        elemTime = elemTime.filter( item => {
-            if (item === '0') return item;
-            if (Number(item) !== NaN) return Number(item);
-        })
-        elemTime = elemTime.reduce((prev,curr) => '' + prev + curr);
-        lapsArr.push([elem, elemTime]);
+            elem.classList.remove('best_lap');
+            elem.classList.remove('worst_lap');
+            let elemTime = [...elem.innerHTML];
+            elemTime = elemTime.filter( item => {
+                if (item === '0') return item;
+                if (Number(item) !== NaN) return Number(item);
+            });
+            elemTime = elemTime.reduce((prev,curr) => '' + prev + curr);
+            lapsArr.push([elem, elemTime]);
         });
         if (lapsArr.length === 0) return;
         if (lapsArr.length === 1) return lapsArr[0][0].classList.add('best_lap');
-        lapsArr.sort( (a, b) => a[1] - b[1])
+        lapsArr.sort( (a, b) => a[1] - b[1]);
         lapsArr[0][0].classList.add('worst_lap');
         lapsArr[lapsArr.length -1][0].classList.add('best_lap');
     },
@@ -66,12 +66,11 @@ const stopWatch = {
     updateTime(seconds) {
         document.querySelector('.stopwatch_screen_output').innerHTML =  `${this.formatTime(this.minutes)}:${this.formatTime(seconds.toFixed(2))}`;
     },
-    formatTime(minutes) {
-        //if ( minutes > 9) return minutes;
-        if (minutes < 10) return  minutes = `0${(minutes)}`;
-        return minutes;
+    formatTime(time) {
+        if (time < 10) return  time = `0${(time)}`;
+        return time;
     }
-}
+};
 
 document.querySelector('.stopwatch_control').addEventListener('click', (e) => {
     if (e.target.innerHTML === "Start") stopWatch.start();
