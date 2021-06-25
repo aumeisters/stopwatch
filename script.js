@@ -3,12 +3,15 @@ const stopWatch = {
     minutes: 0,
     lastLapM : '00',
     lastLapS : '00',
+    rotationMinutes: 0,
     contTimer() {
         document.querySelector('.stopwatch_control_start').disabled = true;
         this.startPoint += 0.01;
-        if (this.startPoint.toFixed(2) > 59.99) this.startPoint -= 59.99, this.minutes++;
+        this.rotationMinutes += 0.01;
+        if (this.startPoint.toFixed(2) > 59.99) this.startPoint -= 59.99, this.minutes ++;
         this.updateTime(this.startPoint);
-        this.rotateArrow(this.startPoint);
+        this.rotateArrow(this.startPoint,'.stopwatch_clock_clock_arrow');
+        this.rotateArrow((this.rotationMinutes / 60 ),'.stopwatch_clock_clock_arrow_minutes');
     },
     addLap() {
         let lapM = this.minutes - this.lastLapM;
@@ -54,10 +57,12 @@ const stopWatch = {
         this.startPoint = 0;
         this.minutes = 0;
         this.updateTime(0);
+        this.rotationMinutes = 0;
         document.querySelector('.stopwatch_laps').innerHTML = '';
         this.lastLapM = 0;
         this.lastLapS = 0;
-        this.rotateArrow(0);
+        this.rotateArrow(0,'.stopwatch_clock_clock_arrow');
+        this.rotateArrow(0,'.stopwatch_clock_clock_arrow_minutes');
     },
     stop() {
         clearInterval(startTimer);
@@ -73,8 +78,8 @@ const stopWatch = {
         if (time < 10) return  time = `0${(time)}`;
         return time;
     },
-    rotateArrow(seconds) {
-        document.querySelector('.stopwatch_clock_clock_arrow').style.transform = `rotate(${(seconds * 6)}deg )`;
+    rotateArrow(time,selector) {
+        document.querySelector(selector).style.transform = `rotate(${(time * 6)}deg) translateY(-50%)`;
     }
 };
 

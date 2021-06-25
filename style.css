@@ -13,18 +13,18 @@
     border: double rgb(165, 141, 6) 5px;
 }
 .stopwatch_clock {
+    margin-top: 20px;
     width: 100;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.stopwatch_clock_clock {
-    margin-top: 20px;
+.stopwatch_clock_clock, .stopwatch_clock_clock_minutes {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color:rgb(23, 73, 17);
+    background-color:rgb(75, 126, 18);
     background-image: url('http://elkhaleeje.com/assets/images/clock/clock.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -32,7 +32,15 @@
     position: relative;
     transform: rotate(-90deg);
 }
-.stopwatch_clock_clock_arrow {
+.stopwatch_clock_clock_minutes {
+    width: 40px;
+    height: 40px;
+    background-color:rgb(189, 223, 198);
+    transform: rotate(0deg);
+    top: 40%;
+    left: 50%;
+}
+.stopwatch_clock_clock_arrow, .stopwatch_clock_clock_arrow_minutes {
     width: 40%;
     border: 2px solid rgb(175, 46, 46);
     border-right-style: double;
@@ -41,7 +49,12 @@
     top: 50%;
     left: 50%;
     transform-origin: left;
-    transform: rotate(0deg);
+    transform: rotate(0deg) translateY(-50%);
+    z-index: 100;
+}
+.stopwatch_clock_clock_arrow_minutes {
+    border: 1px solid rgb(23, 73, 17);
+    border-right-width: 3px;
 }
 .stopwatch_screen_output {
     margin: 0;
