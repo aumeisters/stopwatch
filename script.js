@@ -8,6 +8,7 @@ const stopWatch = {
         this.startPoint += 0.01;
         if (this.startPoint.toFixed(2) > 59.99) this.startPoint -= 59.99, this.minutes++;
         this.updateTime(this.startPoint);
+        this.rotateArrow(this.startPoint);
     },
     addLap() {
         let lapM = this.minutes - this.lastLapM;
@@ -56,6 +57,7 @@ const stopWatch = {
         document.querySelector('.stopwatch_laps').innerHTML = '';
         this.lastLapM = 0;
         this.lastLapS = 0;
+        this.rotateArrow(0);
     },
     stop() {
         clearInterval(startTimer);
@@ -70,6 +72,9 @@ const stopWatch = {
     formatTime(time) {
         if (time < 10) return  time = `0${(time)}`;
         return time;
+    },
+    rotateArrow(seconds) {
+        document.querySelector('.stopwatch_clock_clock_arrow').style.transform = `rotate(${(seconds * 6)}deg )`;
     }
 };
 

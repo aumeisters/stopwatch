@@ -12,6 +12,37 @@
     align-items: center;
     border: double rgb(165, 141, 6) 5px;
 }
+.stopwatch_clock {
+    width: 100;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stopwatch_clock_clock {
+    margin-top: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color:rgb(23, 73, 17);
+    background-image: url('http://elkhaleeje.com/assets/images/clock/clock.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    transform: rotate(-90deg);
+}
+.stopwatch_clock_clock_arrow {
+    width: 40%;
+    border: 2px solid rgb(175, 46, 46);
+    border-right-style: double;
+    border-right-width: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: left;
+    transform: rotate(0deg);
+}
 .stopwatch_screen_output {
     margin: 0;
     padding: 0 10px;
