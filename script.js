@@ -1,9 +1,12 @@
-const stopWatch = {
-    startPoint: 0,
-    minutes: 0,
-    lastLapM : 0,
-    lastLapS : 0,
-    rotationMinutes: 0,
+class StopWatch {
+    constructor() {
+        this.startPoint = 0;
+        this.minutes = 0;
+        this.lastLapM = 0;
+        this.lastLapS = 0;
+        this.rotationMinutes = 0;
+        this.startTimer;
+    }
     contTimer() {
         document.querySelector('.stopwatch_control_start').disabled = true;
         this.startPoint += 0.01;
@@ -12,7 +15,7 @@ const stopWatch = {
         this.updateTime(this.startPoint);
         this.rotateArrow(this.startPoint,'.stopwatch_clock_clock_arrow');
         this.rotateArrow((this.rotationMinutes / 60 ),'.stopwatch_clock_clock_arrow_minutes');
-    },
+    }
     addLap() {
         let lapM = this.minutes - this.lastLapM;
         let lapS = this.startPoint - this.lastLapS;
@@ -34,7 +37,7 @@ const stopWatch = {
             };
         });
         this.indicateResults(); 
-    },
+    }
     indicateResults() {
         let lapsArr = [];
         document.querySelectorAll('.stopwatch_laps_time').forEach( elem => {
@@ -53,7 +56,7 @@ const stopWatch = {
         lapsArr.sort( (a, b) => a[1] - b[1]);
         lapsArr[0][0].classList.add('worst_lap');
         lapsArr[lapsArr.length -1][0].classList.add('best_lap');
-    },
+    }
     reset() {
         this.startPoint = 0;
         this.minutes = 0;
@@ -64,29 +67,55 @@ const stopWatch = {
         this.lastLapS = 0;
         this.rotateArrow(0,'.stopwatch_clock_clock_arrow');
         this.rotateArrow(0,'.stopwatch_clock_clock_arrow_minutes');
-    },
+    }
     stop() {
-        clearInterval(startTimer);
+        clearInterval(this.startTimer);
         document.querySelector('.stopwatch_control_start').disabled = false;
-    },
+    }
     start() {
-        startTimer = setInterval(stopWatch.contTimer.bind(stopWatch),10); 
-    },
+        this.startTimer = setInterval(this.contTimer.bind(this),10); 
+    }
     updateTime(seconds) {
         document.querySelector('.stopwatch_screen_output').innerHTML =  `${this.formatTime(this.minutes)}:${this.formatTime(seconds.toFixed(2))}`;
-    },
+    }
     formatTime(time) {
         if (time < 10) return  time = `0${(time)}`;
         return time;
-    },
+    }
     rotateArrow(time,selector) {
         document.querySelector(selector).style.transform = `rotate(${(time * 6)}deg) translateY(-50%)`;
     }
+    init(selector) {
+        document.querySelector(selector).innerHTML = `
+            <div class="stopwatch">
+            <div class="stopwatch_screen">
+                <p class="stopwatch_screen_output">00:00.00</p>
+            </div>
+            <div class="stopwatch_control">
+                <button class="stopwatch_control_start">Start</button>
+                <button class="stopwatch_control_stop">Stop</button>
+                <button class="stopwatch_control_reset">Reset</button>
+                <button class="stopwatch_control_lap">Lap</button>
+            </div>
+            <div class="stopwatch_clock">
+                <div class="stopwatch_clock_clock">
+                    <div class="stopwatch_clock_clock_arrow"></div>
+                    <div class="stopwatch_clock_clock_minutes">
+                        <div class="stopwatch_clock_clock_arrow_minutes"></div>
+                    </div>
+                </div>
+            </div>
+            <ol class="stopwatch_laps"></ol>
+        </div>
+        `
+    
+    document.querySelector('.stopwatch_control').addEventListener('click', (e) => {
+        if (e.target.innerHTML === "Start") this.start();
+        if (e.target.innerHTML === 'Stop') this.stop();
+        if (e.target.innerHTML === 'Reset') this.reset();
+        if (e.target.innerHTML === 'Lap') this.addLap();
+    });
+    }
 };
-
-document.querySelector('.stopwatch_control').addEventListener('click', (e) => {
-    if (e.target.innerHTML === "Start") stopWatch.start();
-    if (e.target.innerHTML === 'Stop') stopWatch.stop();
-    if (e.target.innerHTML === 'Reset') stopWatch.reset();
-    if (e.target.innerHTML === 'Lap') stopWatch.addLap();
-});
+const stopwatch1 = new StopWatch();
+stopwatch1.init('.output1');
