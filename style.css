@@ -1,3 +1,7 @@
+* {
+    font-family: monospace;
+    user-select: none;
+}
 .stopwatch {
     width: 300px;
     background-color: black;
@@ -7,6 +11,50 @@
     justify-content: space-between;
     align-items: center;
     border: double rgb(165, 141, 6) 5px;
+}
+.stopwatch_clock {
+    margin-top: 20px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.stopwatch_clock_clock, .stopwatch_clock_clock_minutes {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color:rgb(75, 126, 18);
+    background-image: url('http://elkhaleeje.com/assets/images/clock/clock.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    transform: rotate(-90deg);
+}
+.stopwatch_clock_clock_minutes {
+    width: 40px;
+    height: 40px;
+    background-color:rgb(189, 223, 198);
+    transform: rotate(0deg);
+    top: 40%;
+    left: 50%;
+}
+.stopwatch_clock_clock_arrow, .stopwatch_clock_clock_arrow_minutes {
+    width: 40%;
+    border: 2px solid rgb(175, 46, 46);
+    border-right-style: double;
+    border-right-width: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: left;
+    transform: rotate(0deg) translateY(-50%);
+    z-index: 100;
+}
+.stopwatch_clock_clock_arrow_minutes {
+    border: 1px solid rgb(23, 73, 17);
+    border-right-width: 3px;
 }
 .stopwatch_screen_output {
     margin: 0;
@@ -33,14 +81,44 @@
     justify-content: flex-start;
     padding: 10px;
 }
+.stopwatch_laps li {
+    margin-left: 20px;
+}
+.stopwatch_laps li span {
+    display: inline-block;
+}
+.stopwatch_laps li .stopwatch_laps_lap{
+    display: flex;
+    justify-content: space-between;
+}
+.stopwatch_laps li .stopwatch_laps_lap:hover .stopwatch_laps_lap_del {
+    opacity: 100;
+}
+.stopwatch_laps_lap_del {
+    cursor: pointer;
+    opacity: 0;
+    align-self: center;
+    color: rgb(218, 40, 40);
+    font-size: 14px;
+    padding: 2px 3px;
+    border: 1px solid rgb(145, 41, 41);
+    background-color: rgba(138, 43, 43, 0.5);
+    transition: opacity 0.3s;
+    margin-right: 5px;
+}
 button {
     width: 55px;
     background-color: rgb(165, 141, 6);
     text-transform: uppercase;
     border-radius: 50%;
     padding: 5px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: inherit;
     font-weight: bold;
     font-size: 14px;
 }
-
+.best_lap {
+    color: rgb(187, 235, 15);
+}
+.worst_lap {
+    color: rgb(218, 40, 40);
+}
