@@ -10,12 +10,15 @@ class StopWatch {
     }
     contTimer() {
         document.querySelector(`.${this.selector}_stopwatch_control_start`).disabled = true;
+        if (sessionStorage[`${this.selector}_seconds`]) this.startPoint = Number(sessionStorage[`${this.selector}_seconds`]);
+        if (sessionStorage[`${this.selector}_minutes`]) this.minutes = Number(sessionStorage[`${this.selector}_minutes`]);
         this.startPoint += 0.01;
         this.rotationMinutes += 0.01;
         if (this.startPoint.toFixed(2) > 59.99) this.startPoint = 0.01, this.minutes ++;
         this.updateTime(this.startPoint);
         this.rotateArrow(this.startPoint,`.${this.selector}_stopwatch_clock_clock_arrow`);
         this.rotateArrow((this.rotationMinutes / 60 ),`.${this.selector}_stopwatch_clock_clock_arrow_minutes`);
+        this.saveData(this.startPoint,this.minutes);
     }
     addLap() {
         let lapM = this.minutes - this.lastLapM;
@@ -68,6 +71,8 @@ class StopWatch {
         this.lastLapS = 0;
         this.rotateArrow(0,`.${this.selector}_stopwatch_clock_clock_arrow`);
         this.rotateArrow(0,`.${this.selector}_stopwatch_clock_clock_arrow_minutes`);
+        sessionStorage.removeItem(`${this.selector}_seconds`);
+        sessionStorage.removeItem(`${this.selector}_minutes`);
     }
     stop() {
         clearInterval(this.startTimer);
@@ -118,6 +123,10 @@ class StopWatch {
             if (e.target.innerHTML === 'Reset') this.reset();
             if (e.target.innerHTML === 'Lap') this.addLap();
         });
+    }
+    saveData(seconds,minutes) {
+        sessionStorage.setItem(`${this.selector}_seconds`, seconds);
+        sessionStorage.setItem(`${this.selector}_minutes`, minutes);
     }
 };
 const stopwatch1 = new StopWatch('output1');
