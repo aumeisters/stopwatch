@@ -81,6 +81,9 @@
     justify-content: flex-start;
     padding: 10px;
 }
+.stopwatch_laps li {
+    margin-left: 20px;
+}
 .stopwatch_laps li span {
     display: inline-block;
 }
